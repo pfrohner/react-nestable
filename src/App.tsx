@@ -1,46 +1,71 @@
-import React from 'react';
+import React, { FC, useState } from 'react';
 import Nestable from 'react-nestable';
+import { uid } from 'react-uid'
+import { Formik, ErrorMessage  } from 'formik';
+import * as yup from 'yup';
+import filterDeep from 'deepdash/filterDeep';
+
+import { TextField, Button } from '@material-ui/core';
+import DeleteIcon from '@material-ui/icons/Delete';
 
 import logo from './logo.svg';
 import './App.css';
 
-const App: React.FC = () => {
-  type ItemType = {
-    id: number;
-    text: string;
-    children?: ItemType[]
-  }
-  const items: (ItemType[]) = [
-    {
-      id: 0,
-      text: 'John',
-      children: [
-        {
-          id: 1,
-          text: 'Sarah'
-        }
-      ]
-    },
-    {
-      id: 2,
-      text: 'Jack',
-      children: [
-        {
-          id: 3,
-          text: 'David'
-        },
-        {
-          id: 4,
-          text: 'Peter'
-        }
-      ]
-    },
-    {
-      id: 5,
-      text: 'Lisa'
+type Item = {
+  id: string;
+  text: string;
+  children?: Item[]
+}
+
+type FormData = {
+  text: string;
+}
+
+const initialValues: FormData = {
+  text: 'John'
+}
+
+const validationSchema = yup.object({
+  text: yup
+    .string()
+    .required()
+    .min(4)
+    .max(50)
+});
+
+const App: FC = () => {
+  const [items, setItems] = useState<Item[]>([]);
+
+  const onSubmit = (data: FormData, actions: { setSubmitting: (state: boolean) => void }) => {
+    actions.setSubmitting(true)
+    const newItem: Item = {
+      id: uid(data),
+      text: data.text
     }
-  ];
-  const renderItem = ({ item }: { item: { text: string, children: [] }}) => item.text
+    setItems([...items, newItem]);
+    data.text = '';
+    actions.setSubmitting(false);
+  }
+  const onDelete = (id: string): void => {
+    const isSure: boolean = window.confirm('Are you sure?');
+    if (isSure) {
+      const filteredItems: Item[] = filterDeep(items, (value: { id: string; }) => value.id !== id,
+      { childrenPath: 'children', pathFormat: 'array' }
+      )
+      setItems(filteredItems ?? []);
+    }
+  }
+  const onNestableChange = (newState: Item[]) => setItems(newState);
+  const renderItem = ({ item }: { item: { id: string, text: string, children: [] }}): any => {
+    return <>
+      {item.text}
+      {item.children.length === 0 && <DeleteIcon
+        fontSize="small"
+        className="DeleteIcon"
+        onClick={() => onDelete(item.id)} />
+      }
+    </>
+  }
 
   return (
     <div className="App">
@@ -49,7 +74,40 @@ const App: React.FC = () => {
         <p>React Nestable demo</p>
       </header>
       <main className="Content">
+        <div className="Form">
+          <Formik
+            initialValues={initialValues}
+            onSubmit={onSubmit}
+            validateOnChange={false}
+            validationSchema={validationSchema}
+          >
+            {({ values, isSubmitting, handleChange, handleBlur, handleSubmit }) => (
+              <form onSubmit={handleSubmit}>
+                <TextField
+                  name="text"
+                  value={values.text}
+                  onChange={handleChange}
+                  placeholder="Add new item"
+                  onBlur={handleBlur}  />
+                <Button
+                  disabled={isSubmitting}
+                  type="submit"
+                  size="small"
+                  variant="contained"
+                  color="primary"
+                  className="SubmitButton"
+                >
+                  Submit
+                </Button>
+                <div>
+                  <ErrorMessage name="text" />
+                </div>
+              </form>
+            )}
+          </Formik>
+        </div>
         <Nestable
+          onChange={onNestableChange}
           items={items}
           renderItem={renderItem}
           maxDepth={3}

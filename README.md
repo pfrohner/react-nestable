@@ -49,6 +49,6 @@ To learn React, check out the [React documentation](https://reactjs.org/).
 
 
 ## TODO
- - Replace static data with a form
  - Stricter eslint rules
- - Use jest for testing
+ - Group deletion
+ - Integration test

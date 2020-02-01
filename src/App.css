@@ -11,7 +11,22 @@
 .Content {
   position: relative;
   padding: 10px 15px;
+  margin: 20px auto;
   cursor: pointer;
+}
+
+.Form {
+  margin: 0 auto;
+  width: 300px;
+}
+
+.SubmitButton {
+  margin: -5px 5px;
+}
+
+.DeleteIcon {
+  position: relative;
+  top: .25rem;
 }
 
 @media (prefers-reduced-motion: no-preference) {
