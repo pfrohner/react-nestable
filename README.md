@@ -49,6 +49,5 @@ To learn React, check out the [React documentation](https://reactjs.org/).
 
 
 ## TODO
- - Stricter eslint rules
  - Group deletion
- - Integration test
+ - Stricter eslint rules

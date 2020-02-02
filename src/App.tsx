@@ -11,18 +11,18 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import logo from './logo.svg';
 import './App.css';
 
+type Props = {
+  defaultItems?: Item[];
+}
+
 type Item = {
   id: string;
   text: string;
-  children?: Item[]
+  children?: Item[];
 }
 
 type FormData = {
   text: string;
-}
-
-const initialValues: FormData = {
-  text: 'John'
 }
 
 const validationSchema = yup.object({
@@ -33,9 +33,12 @@ const validationSchema = yup.object({
     .max(50)
 });
 
-const App: FC = () => {
-  const [items, setItems] = useState<Item[]>([]);
+const initialValues: FormData = {
+  text: 'New item'
+}
 
+const App: FC<Props> = ({ defaultItems }) => {
+  const [items, setItems] = useState<Item[]>(defaultItems ?? []);
   const onSubmit = (data: FormData, actions: { setSubmitting: (state: boolean) => void }) => {
     actions.setSubmitting(true)
     const newItem: Item = {
@@ -49,22 +52,24 @@ const App: FC = () => {
   const onDelete = (id: string): void => {
     const isSure: boolean = window.confirm('Are you sure?');
     if (isSure) {
+      // TODO: make this work on any level
       const filteredItems: Item[] = filterDeep(items, (value: { id: string; }) => value.id !== id,
       { childrenPath: 'children', pathFormat: 'array' }
       )
       setItems(filteredItems ?? []);
     }
   }
-  const onNestableChange = (newState: Item[]) => setItems(newState);
+  const onNestableChange = (newState: Item[]) => setItems(newState); // keep state in sync with changes from nestable
   const renderItem = ({ item }: { item: { id: string, text: string, children: [] }}): any => {
-    return <>
+    return <span data-testid={`item-${item.id}`}>
       {item.text}
       {item.children.length === 0 && <DeleteIcon
         fontSize="small"
         className="DeleteIcon"
+        data-testid={`deleteButton-${item.id}`}
         onClick={() => onDelete(item.id)} />
       }
-    </>
+    </span>
   }
 
   return (
@@ -95,7 +100,7 @@ const App: FC = () => {
                   size="small"
                   variant="contained"
                   color="primary"
-                  className="SubmitButton"
+                  data-testid="submitButton"
                 >
                   Submit
                 </Button>
@@ -107,14 +112,27 @@ const App: FC = () => {
           </Formik>
         </div>
         <Nestable
-          onChange={onNestableChange}
           items={items}
           renderItem={renderItem}
           maxDepth={3}
+          onChange={onNestableChange}
         />
       </main>
     </div>
   );
 }
+
+App.defaultProps = {
+  defaultItems: [
+    {
+      id: 'uid-1',
+      text: 'Item 1'
+    },
+    {
+      id: 'uid-2',
+      text: 'Item 2'
+    },
+  ]
+} as Partial<Props>;
 
 export default App;
