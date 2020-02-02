@@ -14,8 +14,6 @@
     "@types/react": "^16.9.19",
     "@types/react-dom": "^16.9.5",
     "@types/yup": "^0.26.29",
-    "deepdash": "^4.4.2",
-    "deepdash-es": "^4.4.2",
     "formik": "^2.1.3",
     "react": "^16.12.0",
     "react-dom": "^16.12.0",

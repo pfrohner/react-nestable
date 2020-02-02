@@ -53,5 +53,6 @@ To learn React, check out the [React documentation](https://reactjs.org/).
 
 
 ## TODO
+ - Improve util test
  - Group deletion
  - Stricter eslint rules

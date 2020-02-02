@@ -3,10 +3,11 @@ import Nestable from 'react-nestable';
 import { uid } from 'react-uid'
 import { Formik, ErrorMessage  } from 'formik';
 import * as yup from 'yup';
-import filterDeep from 'deepdash/filterDeep';
 
 import { TextField, Button } from '@material-ui/core';
 import DeleteIcon from '@material-ui/icons/Delete';
+
+import { deleteById } from './utils';
 
 import logo from './logo.svg';
 import './App.css';
@@ -52,10 +53,7 @@ const App: FC<Props> = ({ defaultItems }) => {
   const onDelete = (id: string): void => {
     const isSure: boolean = window.confirm('Are you sure?');
     if (isSure) {
-      // TODO: make this work on any level
-      const filteredItems: Item[] = filterDeep(items, (value: { id: string; }) => value.id !== id,
-      { childrenPath: 'children', pathFormat: 'array' }
-      )
+      const filteredItems: Item[] = deleteById(items, id)
       setItems(filteredItems ?? []);
     }
   }
@@ -63,12 +61,11 @@ const App: FC<Props> = ({ defaultItems }) => {
   const renderItem = ({ item }: { item: { id: string, text: string, children: [] }}): any => {
     return <span data-testid={`item-${item.id}`}>
       {item.text}
-      {item.children.length === 0 && <DeleteIcon
+      <DeleteIcon
         fontSize="small"
         className="DeleteIcon"
         data-testid={`deleteButton-${item.id}`}
         onClick={() => onDelete(item.id)} />
-      }
     </span>
   }
 
