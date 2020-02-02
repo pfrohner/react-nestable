@@ -1,27 +1,27 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "c02115f61ca98e381bd6c85495e3994d",
+    "revision": "da8dea67fab4be00ffd6006026161a50",
     "url": "/react-nestable/index.html"
   },
   {
-    "revision": "7fc79e2372e00bdbe14a",
+    "revision": "d27576b165c1112c1e28",
     "url": "/react-nestable/static/css/2.5537fa9b.chunk.css"
   },
   {
-    "revision": "190f0f87a7b6613d080d",
+    "revision": "626698909e8068452664",
     "url": "/react-nestable/static/css/main.db2ee40d.chunk.css"
   },
   {
-    "revision": "7fc79e2372e00bdbe14a",
-    "url": "/react-nestable/static/js/2.d03ff911.chunk.js"
+    "revision": "d27576b165c1112c1e28",
+    "url": "/react-nestable/static/js/2.49a08787.chunk.js"
   },
   {
     "revision": "358385828b55f8728566cc706231bf37",
-    "url": "/react-nestable/static/js/2.d03ff911.chunk.js.LICENSE"
+    "url": "/react-nestable/static/js/2.49a08787.chunk.js.LICENSE"
   },
   {
-    "revision": "190f0f87a7b6613d080d",
-    "url": "/react-nestable/static/js/main.31b37669.chunk.js"
+    "revision": "626698909e8068452664",
+    "url": "/react-nestable/static/js/main.9ee8c8be.chunk.js"
   },
   {
     "revision": "479bf53e9c6c4aa0ef80",

@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/react-nestable/precache-manifest.34e6d6c476ad59cf6b010b638264b718.js"
+  "/react-nestable/precache-manifest.a8fbb749d1561f4afc577561973f3e3c.js"
 );
 
 self.addEventListener('message', (event) => {
