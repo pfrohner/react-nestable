@@ -1,6 +1,6 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "703bdb018b50c30b18ae6a4adbe0b440",
+    "revision": "c02115f61ca98e381bd6c85495e3994d",
     "url": "/react-nestable/index.html"
   },
   {
@@ -8,7 +8,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/react-nestable/static/css/2.5537fa9b.chunk.css"
   },
   {
-    "revision": "deb1eb99db3a62db16bf",
+    "revision": "190f0f87a7b6613d080d",
     "url": "/react-nestable/static/css/main.db2ee40d.chunk.css"
   },
   {
@@ -20,8 +20,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/react-nestable/static/js/2.d03ff911.chunk.js.LICENSE"
   },
   {
-    "revision": "deb1eb99db3a62db16bf",
-    "url": "/react-nestable/static/js/main.71e336f1.chunk.js"
+    "revision": "190f0f87a7b6613d080d",
+    "url": "/react-nestable/static/js/main.31b37669.chunk.js"
   },
   {
     "revision": "479bf53e9c6c4aa0ef80",
